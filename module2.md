@@ -41,6 +41,17 @@ pragma solidity ^0.8.20;
 -   `^0.8.20` means any version from 0.8.20 up to (but not including) 0.9.0
 -   Ensures compatibility and prevents accidental compilation with an unsupported version
 
+**Other Valid Forms of pragma:**
+
+| Syntax                            | Meaning                                        |
+| --------------------------------- | ---------------------------------------------- |
+| `pragma solidity ^0.8.0;`         | Compatible with 0.8.0 and up (excluding 0.9.0) |
+| `pragma solidity >=0.8.0 <0.9.0;` | Explicit version range                         |
+| `pragma solidity 0.8.20;`         | Strictly require version 0.8.20                |
+| `pragma solidity >=0.7.0;`        | Any version starting from 0.7.0 and above      |
+| `pragma solidity >=0.6.0 <0.8.0;` | Allow only a specific version range            |
+
+> **Always specify a safe and tested compiler range to avoid unexpected behavior from future versions.**
 
 > **Always place SPDX and the Pragma directive on the top of the file.**
 
