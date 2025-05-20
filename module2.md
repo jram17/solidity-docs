@@ -16,16 +16,6 @@ A typical Solidity file (`.sol`) is a self-contained script that defines one or 
 5.  **Functions, state variables, modifiers, events, and constructors** – Defined inside contracts
 
 ## Pragma and SPDX License
-**Pragma solidity**
-
-The `pragma` directive tells the compiler which version of Solidity the code is compatible with:
-
-```jsx
-pragma solidity ^0.8.20;
-```
-
--   `^0.8.20` means any version from 0.8.20 up to (but not including) 0.9.0
--   Ensures compatibility and prevents accidental compilation with an unsupported version
 
 **SPDX-License-Identifier**
 
@@ -39,6 +29,19 @@ This comment helps developers and platforms identify the software license for th
 -   Common licenses include: `MIT`, `GPL-3.0`, `Apache-2.0`
 
 > **Always place SPDX and the Pragma directive on the top of the file.**
+
+
+**Pragma solidity**
+
+The `pragma` directive tells the compiler which version of Solidity the code is compatible with:
+
+```jsx
+pragma solidity ^0.8.20;
+```
+
+-   `^0.8.20` means any version from 0.8.20 up to (but not including) 0.9.0
+-   Ensures compatibility and prevents accidental compilation with an unsupported version
+
 
 ## Contract Structure
 Here’s a basic structure of a smart contract:
