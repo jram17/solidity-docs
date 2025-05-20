@@ -28,7 +28,6 @@ This comment helps developers and platforms identify the software license for th
 -   Required by tools like **Remix** and **Hardhat**
 -   Common licenses include: `MIT`, `GPL-3.0`, `Apache-2.0`
 
-> **Always place SPDX and the Pragma directive on the top of the file.**
 
 
 **Pragma solidity**
@@ -42,6 +41,8 @@ pragma solidity ^0.8.20;
 -   `^0.8.20` means any version from 0.8.20 up to (but not including) 0.9.0
 -   Ensures compatibility and prevents accidental compilation with an unsupported version
 
+
+> **Always place SPDX and the Pragma directive on the top of the file.**
 
 ## Contract Structure
 Here’s a basic structure of a smart contract:
