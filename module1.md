@@ -61,3 +61,7 @@ Gas is a measure of how much work your smart Pokémon has to do. Whether it’s 
 
 > Smart contracts must be written efficiently to minimize gas consumption, especially for operations involving storage or loops.
 
+## Whats Next?
+In the next module, you’ll explore the syntax and structure of Solidity contracts. Think of this as studying the DNA of your digital Pokémon — how they’re born, what they contain, and how they behave.
+
+> Before you can train your Pokémon, you must first learn how to create them.
