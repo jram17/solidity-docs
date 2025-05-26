@@ -120,5 +120,6 @@ function evolve(uint pokeId) public onlyTrainer(pokeId) {
 ```
 
 ## 🧭 What’s Next?
-You’ve mastered control and battle logic. Up next: Events and Logging — how your Pokémon contract sends messages to Trainers, logs wins, and keeps your Pokédex up to date .
+You’ve mastered control and battle logic. 
 
+Up next: Structs, Mappings & Arrays — the Pokédex power tools. You’ll learn to build custom data types, organize your Pokémon parties, and create efficient storage systems to hold entire regions worth of data! 
