@@ -1,33 +1,43 @@
 # 6. Structs, Mappings & Arrays
-Solidity provides structured and efficient data types for organizing and managing data in smart contracts. This module introduces three essential composite types such as **structs**, **mappings**, and **arrays** and how to use them effectively.
+> Build Your Pokédex – Catch, Store & Train Your Pokémon
+Now that your Pokémon can fight and think, it’s time to organize them like a real Pokémon Master! . you’ll build your Pokédex and PC Storage System using powerful data structures: **structs**,**mappings**, and **arrays**.
 
-## Structs : Custom Data Types
+## Structs : Define Your Pokémon Species
 
 A struct is a user-defined data type that groups related variables into a single unit. Structs are useful for modeling entities such as user profiles, records, or metadata.
-
+They are like the DNA of a Pokémon. You use them to define species, stats, evolution data, or even Trainer profiles.
 ```jsx
-struct User {
+struct Pokemon {
     string name;
-    uint age;
-    address wallet;
+    string type;
+    uint hp;
+    uint level;
+    bool legendary;
 }
-
-User public user;
+Pokemon public pikachu;
 
 ```
 
-Structs can be stored as:
 
+You can use structs to :
+- Store each Pokémon’s profile
+- Track battle stats
+- Define evolution paths
+
+Structs can be stored as:
 -   **State variables** (persistent storage)
 -   **Local variables** (in functions)
 -   **Function parameters and return types**
 
+
 ## Mappings : Key-Value Storage
 
 Mappings store key-value pairs and are commonly used for fast, efficient lookup.
+They are like your Trainer Registry – they connect trainers to their Pokémon, badges, items, and more.
 
 ```jsx
-mapping(address => uint) public balances;
+mapping(address => Pokemon[]) public trainerToPokemon;
+
 
 ```
 
@@ -37,29 +47,27 @@ mapping(address => uint) public balances;
 
 Use Cases:
 
--   Token balances (`mapping(address => uint)`)
+-   who owns the pokemon (`mapping(address => struct)`)
 -   Ownership records
 -   Permissions and access control
 
-## Nested Structs and Mappings
+## Nested Structs and Mappings -Link Pokémon, Stats & Trainers
 
-Structs can include other structs, arrays, or mappings to create complex, hierarchical data models.
+You can go deeper by nesting structs inside structs or combining with mappings for complex data like evolution chains or battle histories.
 
 ```jsx
-struct Profile {
-    string username;
-    uint reputation;
+struct BattleStats {
+    uint wins;
+    uint losses;
+    mapping(address => bool) battled; // Tracks opponents
 }
 
-struct Account {
-    address owner;
-    Profile profile;
+struct PokemonProfile {
+    string name;
+    string element;
+    BattleStats stats;
 }
 
-struct Voter {
-    bool registered;
-    mapping(uint => bool) votes; // proposalId => voted
-}
 
 //Mappings inside structs can’t be returned directly from public functions due to storage limitations.
 
@@ -73,8 +81,8 @@ Arrays in Solidity store sequential data. They can be:
 -   **Dynamic:** Size can grow or shrink at runtime.
 
 ```jsx
-uint[5] fixedArray;
-uint[] public dynamicArray;
+uint[5] fixedMyTeam;
+Pokemon[] public DynamicMyTeam;
 
 // Fixed-size arrays consume more gas and are less flexible.
 
@@ -82,9 +90,9 @@ uint[] public dynamicArray;
 
 **Array Operations**
 
--   `push()`: Adds an element to a dynamic array
--   `pop()`: Removes the last element
--   `length`: Returns current size
+-   `push()`: Adds an element to a dynamic array - Add a Pokémon to your team
+-   `pop()`: Removes the last element - Release the last Pokémon
+-   `length`: Returns current size - Total team size
 -   `delete`: Resets element to default
 
 ### Iterating Through Arrays and Mappings
@@ -94,9 +102,10 @@ uint[] public dynamicArray;
 You can iterate over arrays using loops:
 
 ```jsx
-for (uint i = 0; i < users.length; i++) {
-    process(users[i]);
+for (uint i = 0; i < myTeam.length; i++) {
+    train(myTeam[i]);
 }
+
 
 ```
 
@@ -105,16 +114,27 @@ for (uint i = 0; i < users.length; i++) {
 Mappings are **not iterable**. To support iteration, maintain a parallel array of keys:
 
 ```jsx
-mapping(address => uint) balances;
-address[] public users;
+mapping(address => Pokemon[]) trainerToTeam;
+address[] public trainers;
 
-function addBalance(address user, uint amount) public {
-    if (balances[user] == 0) {
-        users.push(user);
+function registerTrainer(address trainer) public {
+    if (trainerToTeam[trainer].length == 0) {
+        trainers.push(trainer);
     }
-    balances[user] += amount;
 }
+
 
 // Always consider gas implications when looping through large data sets.
 
 ```
+
+
+## 🧭 What’s Next?
+Now that you’ve structured your world with Pokémon identities, stats, storage, and ownership logic, it’s time to open the Poké Mart and handle real-world value.
+
+In the next module, you'll learn how to:
+- Accept Ether from trainers
+- Reward winners of Pokémon battles
+- Set up secure in-game purchases (like buying Potions or Rare Candies)
+- Manage payouts, security, and withdrawals in your smart contracts
+
