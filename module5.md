@@ -1,5 +1,10 @@
 # 5. Control structures and Error handling
-Smart contracts must make decisions, iterate over data, and handle unexpected situations gracefully. Solidity offers a familiar set of control structures along with specialized tools for error handling and function-level access control.
+> Master Pokémon Logic — Make Decisions, Avoid Critical Hits!
+
+Your Pokémon knows its stats. It knows how to battle. But now it needs to make decisions in real time—should it use Thunderbolt or heal? Should it attack, retreat, or evolve? That’s where control flow comes in.
+
+Just like any good Trainer, your smart contract Pokémon must handle the unexpected: wild variables, edge cases, and logic errors. Solidity gives you the tools to build smart Pokémon that think, react, and protect themselves from bugs and bad actors.
+
 
 This module covers Solidity’s core logic tools: **conditionals**, **loops**, **error handling**, and **modifiers.**all of which are critical to writing robust and secure contracts.
 
@@ -37,7 +42,8 @@ while (i < limit) {
 
 ```
 
-## Error Handling
+## Error Handling - When Moves Fail
+> A good Trainer always checks if a move is legal before using it. Maybe your Pokémon doesn't have enough HP, or the trainer isn’t authorized
 
 Solidity provides three primary mechanisms for detecting and handling errors: `require`, `revert`, and `assert`.
 
@@ -47,7 +53,9 @@ Solidity provides three primary mechanisms for detecting and handling errors: `r
 -   Reverts the transaction **with a message** if the condition is false.
 
 ```jsx
-require(balance >= amount, "Insufficient balance");
+require(hp > 0, "Fainted Pokémon can't fight!");
+require(msg.sender == trainer, "Not your Pokémon!");
+
 
 ```
 
@@ -57,8 +65,8 @@ require(balance >= amount, "Insufficient balance");
 -   More flexible than `require`, especially in nested conditions.
 
 ```jsx
-if (userBlocked) {
-    revert("User is blocked");
+if (isConfused && random() < 50) {
+    revert("Pokémon hurt itself in confusion!");
 }
 
 ```
@@ -69,7 +77,7 @@ if (userBlocked) {
 -   Consumes all remaining gas on failure.
 
 ```jsx
-assert(totalSupply <= MAX_SUPPLY);
+assert(totalCaught <= MAX_POKEMON);
 
 ```
 
@@ -80,13 +88,15 @@ assert(totalSupply <= MAX_SUPPLY);
 Custom errors are a gas-efficient alternative to revert strings. They allow for clearer and more structured error reporting.
 
 ```jsx
-error Unauthorized(address caller);
+error NotYourPokémon(address caller, uint pokeId);
 
-function restrictedAction() public {
-    if (msg.sender != owner) {
-        revert Unauthorized(msg.sender);
+function release(uint pokeId) public {
+    if (pokémon[pokeId].trainer != msg.sender) {
+        revert NotYourPokémon(msg.sender, pokeId);
     }
+    // release logic
 }
+
 
 // Custom errors save gas by avoiding long revert strings and provide typed error handling.
 
@@ -97,14 +107,18 @@ function restrictedAction() public {
 Modifiers are reusable code blocks that run **before** (and optionally after) a function executes. They're commonly used for access control, validations, or pausing logic.
 
 ```jsx
-modifier onlyOwner() {
-    require(msg.sender == owner, "Not the owner");
+modifier onlyTrainer(uint pokeId) {
+    require(pokémon[pokeId].trainer == msg.sender, "Not your Pokémon!");
     _;
 }
 
-function withdraw() public onlyOwner {
-    // owner-only logic
+function evolve(uint pokeId) public onlyTrainer(pokeId) {
+    // Evolution logic
 }
 
+
 ```
+
+## 🧭 What’s Next?
+You’ve mastered control and battle logic. Up next: Events and Logging — how your Pokémon contract sends messages to Trainers, logs wins, and keeps your Pokédex up to date .
 
