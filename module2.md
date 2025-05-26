@@ -5,9 +5,9 @@ In this module, you’ll explore how a smart Pokémon is structured using Solidi
 Before your Pokémon can evolve, you must master the language that creates them.
 
 **🎯 Objective**
-> Master the building blocks of a smart Pokémon contract
-Learn to write clean, maintainable Solidity code
-Understand file structure, contract layout, and best practices
+ - Master the building blocks of a smart Pokémon contract
+ - Learn to write clean, maintainable Solidity code
+ - Understand file structure, contract layout, and best practices
 
 ## Anatomy of a Pokémon Contract: .sol File Structure
 When creating a smart Pokémon, your Solidity file (.sol) acts like its Pokédex entry—everything about your Pokémon is defined here!
