@@ -1,14 +1,17 @@
 
 
 # 8. Events and Logging
-Broadcast major Pokémon events—evolutions, wins, and losses!
-Events in Solidity are a powerful feature that allows smart contracts to log meaningful information to the blockchain. These logs can be **accessed off-chain** by external consumers (like web applications or backend services) and serve as a key mechanism for **tracking contract activity**.
+> Trainer! Your Pokémon leveled up!
+
+Just like announcements in a Pokémon battle — “It’s super effective!” or “Pikachu evolved!” — smart contracts need a way to broadcast key events to trainers and the outside world. That’s what events in Solidity do.
+
+Events act like a Pokémon commentator, narrating what’s happening on the blockchain so your front-end apps, explorers, and tracking tools can follow the action.
+
 
 This module covers what events are, how to emit and listen to them, and their impact on gas costs.
 
 ## What Are Events?
-
-Events are user-defined **logging mechanisms** in Solidity. When an event is emitted, the data is **written to the blockchain log**, but **not stored in contract storage**, making them efficient for external tracking.
+Events are signals your smart contract sends when something important happens: a trade, a victory, an evolution. They're not stored in the contract state but are recorded in the blockchain’s transaction logs, ready for front-end apps, explorers, and indexers to pick up.
 
 They are primarily used to:
 
@@ -21,16 +24,30 @@ event Transferred(address indexed from, address indexed to, uint amount);
 
 ```
 
-Events are declared outside of functions, typically near the top of the contract.
+Here we use events for:
+- Tracking battles, trades and stats updates
+- Alerting trainers to real-time actions
+- Feeding data to the Pokédex (a.k.a dApp UI)
 
-Emitting and Listening to Events
+```jsx
+event BattleResult(address indexed trainer, string result, uint256 exp);
 
-## Emitting Events
+```
+
+
+
+
+
+> Events are declared outside of functions, typically near the top of the contract.
+
+
+
+## Emitting Events - "Trainer used Thunderbolt!"
 
 Inside your contract, you emit events to log occurrences:
 
 ```jsx
-emit Transferred(msg.sender, recipient, amount);
+event BattleResult(address indexed trainer, string result, uint256 exp);
 
 ```
 
@@ -40,16 +57,16 @@ This action stores the event in the transaction’s log, which is accessible via
 -   Blockchain explorers
 -   Indexing tools like The Graph
 
-## Listening Off-Chain
+## Listening Off-Chain - "Announcer mode: ON"
 
-Client applications (e.g. using Web3.js) can listen for events like this:
+Using tools like Web3.js or Ethers.js, your dApp can “listen” for these on-chain shouts:
 
 ```jsx
-contract.events.Transferred({
-  filter: { from: userAddress },
+contract.events.BattleResult({
+  filter: { trainer: userAddress },
   fromBlock: 'latest'
-}, function(error, event) {
-  console.log(event.returnValues);
+}, (err, event) => {
+  console.log("📢 Battle log:", event.returnValues);
 });
 
 ```
@@ -61,7 +78,7 @@ This integration enables dynamic interfaces and notifications, bridging smart co
 Solidity allows up to **3 parameters** in an event to be marked as `indexed`. These indexed fields are stored in a **Bloom filter**, making them searchable when filtering logs.
 
 ```jsx
-event ItemListed(address indexed seller, uint indexed itemId, uint price);
+event Traded(address indexed fromTrainer, address indexed toTrainer, uint pokemonId);
 
 ```
 
@@ -70,10 +87,8 @@ event ItemListed(address indexed seller, uint indexed itemId, uint price);
 -   Enable efficient filtering by topics (e.g., find all events from a specific address)
 -   Improve query performance when scanning large log datasets
 
-<aside> 💡
-You can have more than 3 parameters, but only the first 3 can be indexed.
+> 💡 You can have more than 3 parameters, but only the first 3 can be indexed.
 
-</aside>
 
 **Gas Implications of Events**
 
@@ -92,3 +107,11 @@ You can have more than 3 parameters, but only the first 3 can be indexed.
  
 > 💡 **Use events to signal meaningful actions: deposits, transfers, ownership changes ,but not as a substitute for state.**
     
+## 🧭 What’s Next?
+You’ve just learned how to broadcast battles and evolutions like a seasoned announcer—now it’s time to level up your contracts themselves.
+
+Next up:
+
+ Module 9 — Inheritance, Interfaces, and Libraries: Build Your Contract Pokédex
+
+Just like Pokémon inherit traits from their types and abilities, smart contracts can inherit code and share logic. Discover how to build modular, reusable, and interconnected contract systems — your very own Pokémon species hierarchy.
