@@ -1,26 +1,38 @@
 # 10. Token Standards
 
- **Welcome to the Pokémon Token League!**
-To evolve your training journey, you now need **PokéCoins (ERC-20)** to buy items, **unique Legendary Pokémon (ERC-721)** to build your team, and perhaps even **Pokémon packs (ERC-1155)** that hold multiple cards at once!
+> Welcome to the Pokémon Token League!
 
-Solidity uses different **ERC token standards** to define how tokens behave. Each standard has unique properties for different use cases—from identical tokens to rare, one-of-a-kind digital collectibles.
+You're now ready to unlock the blockchain equivalent of the Pokémon world’s trading cards, currency, and item packs. This module explores how to bring PokéCoins, Legendary Pokémon, and booster packs to life using Ethereum's most powerful token standards:
 
-**Unlock ERC-20 PokéCoins and mint legendary Pokémon (ERC-721).**
+- ERC-20: For fungible PokéCoins and in-game currency
+- ERC-721: For one-of-a-kind Legendary Pokémon
+- ERC-1155: For versatile PokéPacks that contain items, characters, or both!
 
-## ERC Standards: ERC-20, ERC-721, and ERC-1155
+## ERC Token Standards Overview
 
-**ERC-20 – Fungible Tokens**
+Ethereum Request for Comments (ERC) standards define how tokens behave. Solidity contracts follow these standards to ensure compatibility across wallets, marketplaces, and dApps.
 
-The **ERC-20** standard defines a set of functions and events for fungible tokens—where each token is identical and interchangeable (e.g., USDC, DAI).
+| Standard | Type         | Use Case                         | Unique Feature                  |
+| -------- | ------------ | -------------------------------- | ------------------------------- |
+| ERC-20   | Fungible     | PokéCoins, currencies, XP points | Identical and divisible tokens  |
+| ERC-721  | Non-fungible | Legendary Pokémon, unique items  | Unique IDs for each token       |
+| ERC-1155 | Multi-token  | Booster packs, hybrid items      | Batch operations & shared logic |
+
+
+
+
+## ERC-20 – PokéCoins: Your In-Game Currency
+
+ERC-20 tokens are like PokéCoins in your wallet—every unit is equal and interchangeable.
 
 **Key Functions:**
 
--   `balanceOf(address)`
--   `transfer(to, amount)`
--   `approve(spender, amount)`
--   `transferFrom(from, to, amount)`
+-   `totalSupply()` – Total coins available
+-   `balanceOf(address)` – Trainer’s PokéCoin balance
+-   `transfer(to, amount)` – Send PokéCoins
+-   `approve() / transferFrom()` – Allow others to spend on your behalf
 
-ERC-20 tokens are widely used in DeFi and represent currencies, staking tokens, or governance assets.
+
 ``` jsx 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -32,18 +44,28 @@ contract PokeCoin is ERC20 {
         _mint(msg.sender, 1000 * 10 ** decimals());
     }
 }
-```
-### **ERC-721 – Non-Fungible Tokens (NFTs)**
 
+```
+
+> ERC-20 tokens are widely used in DeFi and represent currencies, staking tokens, or governance assets.
+
+## **ERC-721 – Non-Fungible Tokens (NFTs)**
+
+>  Legendary Pokémon: Unique Collectibles
+
+**ERC-721** tokens are perfect for Legendary Pokémon—each with a distinct identity and metadata.
 **ERC-721** defines the standard for **non-fungible tokens**—unique assets like digital art, collectibles, or in-game items.
 
 **Key Functions:**
 
--   `ownerOf(tokenId)`
--   `safeTransferFrom(from, to, tokenId)`
+-   `ownerOf(tokenId)` - Who owns the Pokémon
+-   `safeTransferFrom(from, to, tokenId)` - Trade Pokémon safely
 -   `tokenURI(tokenId)` (metadata)
 
 Each token has a unique ID and can point to metadata or artwork via IPFS or a centralized URL.
+
+
+### Example: Legendary Pokémon Contract
 
 ```jsx
 // SPDX-License-Identifier: MIT
@@ -66,11 +88,12 @@ contract LegendaryPokemon is ERC721 {
     }
 }
 
+
 ```
 
-### **ERC-1155 – Multi-Token Standard**
+### **ERC-1155 – PokéPacks: Multiple Items, One Contract - Multi-Token Standard**
 
-**ERC-1155** supports both **fungible and non-fungible tokens** in a single contract, making it highly gas-efficient for games, marketplaces, and batch transfers.
+**ERC-1155** is ideal for booster packs that might contain a mix of items—PokéBalls, berries, even Pokémon!
 
 **Key Features:**
 
@@ -78,8 +101,10 @@ contract LegendaryPokemon is ERC721 {
 -   Shared metadata for similar token types
 -   Lower gas usage than ERC-721 for multiple tokens
 
+### Example: PokéPack Contract
+
 ```jsx
-// SPDX-License-Identifier: **MIT**
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
@@ -97,8 +122,19 @@ contract PokePack is ERC1155, Ownable {
     }
 }
 
+
 ```
 
 > 💡 **Use ERC-20** for fungible assets, **ERC-721** for one-of-a-kind items, and **ERC-1155** when dealing with large collections or hybrid assets.
 
 
+## 🧭 What’s Next?
+
+You've minted coins, captured legendaries, and packed your deck. But to become a true Solidity Champion, you’ll need to defend your contracts like a Master Trainer guards their team.
+
+Next up:
+
+Module 11 – Bonus Module: Advanced Solidity Concepts
+ 
+Face off against gym-leader-level challenges like access control, reentrancy attacks, and upgradeable contracts.
+You'll learn how to guard your assets, structure roles, and future-proof your code using security patterns and proxy architecture.
